@@ -1,0 +1,47 @@
+[
+  {
+    "name": "React Schedule",
+    "link": "https://zevez7.github.io/schedule/",
+    "github": "https://github.com/Zevez7/schedule",
+    "date": "2019-12",
+    "stack": ["React", "Redux", "Semantic-UI React"],
+    "info": "Online appointment scheduler and staff manager",
+    "color": ["#36BAAF", "#FFFFFF", "#36BAAF"]
+  },
+  {
+    "name": "HealthEd",
+    "link": "http://healthed.datguy7.com/",
+    "github": "https://github.com/Zevez7/healthEd",
+    "date": "2019-10",
+    "stack": ["React", "Material-UI", "Firebase", "Firestore"],
+    "info": "Online quiz based web education site",
+    "color": ["#1976D2", "#FFFFFF", "#EEEE30"]
+  },
+  {
+    "name": "Tampa NAAAP Portal",
+    "link": "http://tampanaaap.datguy7.com/",
+    "github": "https://github.com/Zevez7/portal",
+    "date": "2019-09",
+    "stack": ["React", "Material-UI", "Firebase"],
+    "info": "An online portal for members to login and view account information",
+    "color": ["#AF282D", "#FFFFFF", "#7E8083"]
+  },
+  {
+    "name": "Tampa NAAAP",
+    "link": "http://portal.datguy7.com/",
+    "github": "https://github.com/Zevez7/NAAAP-Tampa",
+    "date": "2019-08",
+    "stack": ["React", "BootStrap 4", "Firebase"],
+    "info": "A full membership website with user accounts",
+    "color": ["#FEFAEB", "#EB1228", "#FEFAEB"]
+  },
+  {
+    "name": "Cali Nail",
+    "link": "http://www.calinailsuncity.com/",
+    "github": "https://github.com/Zevez7/cali_nails",
+    "date": "2019-07",
+    "stack": ["React", "BootStrap 4"],
+    "info": "A small business website",
+    "color": ["#007BFF", "#f06363", "#5EB69E"]
+  }
+]
