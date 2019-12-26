@@ -1,27 +1,27 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "0a92a33395151655a3aea8ea281d00da",
+    "revision": "e54e620a1d7183cbc2452d69940d5c75",
     "url": "/datapp/index.html"
   },
   {
-    "revision": "8bbeadb31f5d802dfd5e",
+    "revision": "83369855f8c402538bd2",
     "url": "/datapp/static/css/2.6a0db531.chunk.css"
   },
   {
-    "revision": "b49f0b0cce4c1cfbcbe2",
+    "revision": "ebf1f6b981f096570205",
     "url": "/datapp/static/css/main.83041bff.chunk.css"
   },
   {
-    "revision": "8bbeadb31f5d802dfd5e",
-    "url": "/datapp/static/js/2.42865562.chunk.js"
+    "revision": "83369855f8c402538bd2",
+    "url": "/datapp/static/js/2.44995d68.chunk.js"
   },
   {
     "revision": "f8513fb9f2981a1b206fb733b985f272",
-    "url": "/datapp/static/js/2.42865562.chunk.js.LICENSE"
+    "url": "/datapp/static/js/2.44995d68.chunk.js.LICENSE"
   },
   {
-    "revision": "b49f0b0cce4c1cfbcbe2",
-    "url": "/datapp/static/js/main.552142fd.chunk.js"
+    "revision": "ebf1f6b981f096570205",
+    "url": "/datapp/static/js/main.f2a1541a.chunk.js"
   },
   {
     "revision": "6067992dfb8d5d3be05e",
