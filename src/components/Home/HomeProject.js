@@ -25,7 +25,7 @@ const StringDateFormat = dateData => {
   });
 };
 
-const Project = props => {
+const HomeProject = props => {
   const { name, link, github, date, stack, info, color } = props.data;
 
   return (
@@ -38,18 +38,20 @@ const Project = props => {
             computer={6}
             style={styleProject.columnBox}
           >
-            <div
-              style={
-                color && {
-                  background: `linear-gradient(45deg, ${color[0]}, ${color[0]} 40%, ${color[1]} 40%, ${color[1]} 60%, ${color[2]} 60%, ${color[2]})`,
-                  height: 70,
-                  width: 70,
-                  marginLeft: "auto",
-                  marginRight: "auto",
-                  border: "1px solid whitesmoke"
+            <a href={link}>
+              <div
+                style={
+                  color && {
+                    background: `linear-gradient(45deg, ${color[0]}, ${color[0]} 40%, ${color[1]} 40%, ${color[1]} 60%, ${color[2]} 60%, ${color[2]})`,
+                    height: 70,
+                    width: 70,
+                    marginLeft: "auto",
+                    marginRight: "auto",
+                    border: "1px solid whitesmoke"
+                  }
                 }
-              }
-            ></div>
+              ></div>
+            </a>
           </Grid.Column>
           <Grid.Column
             style={styleProject.title}
@@ -94,4 +96,4 @@ const Project = props => {
   );
 };
 
-export default Project;
+export default HomeProject;

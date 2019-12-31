@@ -1,8 +1,8 @@
 import React from "react";
 import { Image, Grid } from "semantic-ui-react";
-import PaulOcean from "../images/paulocean.jpg";
+import PaulOcean from "../../images/paulocean.jpg";
 import { connect } from "react-redux";
-import Project from "./Project";
+import HomeProject from "./HomeProject";
 
 const styleHome = {
   spacer: {
@@ -10,10 +10,10 @@ const styleHome = {
   }
 };
 
-
 const Home = props => {
   //****testing
   console.log("props.project", props.project);
+
   return (
     <>
       <Image src={PaulOcean} size="medium" circular centered />
@@ -22,7 +22,7 @@ const Home = props => {
       <Grid container columns={4} doubling>
         <Grid.Row>
           {props.project.map(item => {
-            return <Project data={item} />;
+            return <HomeProject data={item} />;
           })}
         </Grid.Row>
       </Grid>
@@ -31,7 +31,7 @@ const Home = props => {
 };
 
 const mapStateToProps = state => ({
-  project: state.project
+  project: state.home
 });
 
 const mapDispatchToProps = {};
