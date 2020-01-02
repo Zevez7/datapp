@@ -1,0 +1,2 @@
+body{font-size:1.1em!important}.imageRotate{-webkit-animation:spin 15s linear 1;animation:spin 15s linear 1}@-webkit-keyframes spin{to{-webkit-transform:rotate(1turn)}}@keyframes spin{to{-webkit-transform:rotate(1turn);transform:rotate(1turn)}}
+/*# sourceMappingURL=main.ffe4d7b8.chunk.css.map */
