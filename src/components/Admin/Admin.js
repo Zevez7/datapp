@@ -1,10 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
-import { Table, Item, Button } from "semantic-ui-react";
+import { Table, Item, Button, Confirm } from "semantic-ui-react";
 import { DateTime } from "luxon";
 import { deleteProject } from "../../Actions/Index";
+import AdminModalAddProject from "./AdminModalAddProject";
+
+const styleAdmin = {};
 
 const Admin = props => {
+  const [open, setOpen] = useState(false);
+  const [deleteId, setDeleteId] = useState(null);
+  const [deleteName, setDeleteName] = useState(null);
+
+  const openButton = (itemId, itemName) => {
+    setDeleteId(itemId);
+    setDeleteName(itemName);
+    setOpen(true);
+  };
+  const closeButton = () => setOpen(false);
+
+  const submitButton = () => {
+    closeButton();
+    props.deleteProjectRx(deleteId);
+  };
+
   const StringDateFormat = dateData => {
     return DateTime.fromISO(dateData).toLocaleString({
       month: "short",
@@ -20,7 +39,7 @@ const Admin = props => {
               {item.name}
 
               <Button
-                onClick={() => props.deleteProjectRx(item.id)}
+                onClick={() => openButton(item.id, item.name)}
                 basic
                 compact
                 floated="right"
@@ -41,7 +60,7 @@ const Admin = props => {
             <Table.Cell>{item.id}</Table.Cell>
           </Table.Row>
           <Table.Row>
-            <Table.Cell width={2}>web link</Table.Cell>
+            <Table.Cell width={2}>web</Table.Cell>
             <Table.Cell>
               <Item
                 as="a"
@@ -53,9 +72,8 @@ const Admin = props => {
               </Item>
             </Table.Cell>
           </Table.Row>
-
           <Table.Row>
-            <Table.Cell>github link</Table.Cell>
+            <Table.Cell>github</Table.Cell>
             <Table.Cell>
               <Item
                 as="a"
@@ -72,23 +90,42 @@ const Admin = props => {
             <Table.Cell>{StringDateFormat(item.date)}</Table.Cell>
           </Table.Row>
           <Table.Row>
-            <Table.Cell>stack</Table.Cell>
-            <Table.Cell>{item.stack.join(", ")}</Table.Cell>
-          </Table.Row>
-          <Table.Row>
             <Table.Cell>info</Table.Cell>
             <Table.Cell>{item.info}</Table.Cell>
           </Table.Row>
           <Table.Row>
+            <Table.Cell>stack</Table.Cell>
+            <Table.Cell>
+              {Array.isArray(item.stack) ? item.stack.join(", ") : item.stack}
+            </Table.Cell>
+          </Table.Row>
+          <Table.Row>
             <Table.Cell>color</Table.Cell>
-            <Table.Cell>{item.color.join(", ")}</Table.Cell>
+            <Table.Cell>
+              {Array.isArray(item.color) ? item.color.join(", ") : item.color}
+            </Table.Cell>
           </Table.Row>
         </Table.Body>
       </Table>
     );
   });
 
-  return <div>{projectMap}</div>;
+  return (
+    <div>
+      <Confirm
+        open={open}
+        header={`Delete Confirmation`}
+        onCancel={closeButton}
+        onConfirm={() => {
+          submitButton();
+        }}
+        content={`${deleteName}`}
+        confirmButton="Delete"
+      />
+      <AdminModalAddProject />
+      {projectMap}
+    </div>
+  );
 };
 
 const mapStateToProps = state => {

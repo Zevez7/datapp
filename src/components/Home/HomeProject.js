@@ -86,7 +86,9 @@ const HomeProject = props => {
             <Item>
               <Item.Content>
                 <Item.Description>{info}</Item.Description>
-                <Item.Description>{stack.join(", ")}</Item.Description>
+                <Item.Description>
+                  {Array.isArray(stack) ? stack.join(", ") : stack}
+                </Item.Description>
               </Item.Content>
             </Item>
           </Grid.Column>

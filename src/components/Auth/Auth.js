@@ -12,7 +12,7 @@ const styleAuth = {
     padding: 30
   },
   fontsize: {
-    fontSize: "1.2rem"
+    fontSize: "1.1rem"
   }
 };
 
@@ -37,6 +37,7 @@ const Auth = props => {
       username: "",
       password: ""
     });
+    props.history.push("/");
   };
 
   return (

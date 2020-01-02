@@ -21,8 +21,8 @@ const Home = props => {
       <div style={styleHome.spacer} />
       <Grid container columns={4} doubling>
         <Grid.Row>
-          {props.project.map(item => {
-            return <HomeProject data={item} />;
+          {props.project.map((item, index) => {
+            return <HomeProject data={item} key={index} />;
           })}
         </Grid.Row>
       </Grid>
