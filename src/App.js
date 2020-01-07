@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./App.css";
 import Home from "./components/Home/Home";
 import NavBar from "./components/NavBar";
@@ -9,10 +9,21 @@ import { HashRouter as Router, Route, Switch } from "react-router-dom";
 import ScrollToTop from "./components/ScrollToTop";
 import { Container } from "semantic-ui-react";
 import About from "./components/About";
-import Auth from "./components/Auth/Auth";
+import Login from "./components/Login/Login";
 import Admin from "./components/Admin/Admin";
+import { checkAuthState, getProjects } from "./Actions/Index";
+import { connect } from "react-redux";
 
-function App() {
+function App(props) {
+  const { getProjectsRx } = props;
+  console.log("app page call");
+
+  props.checkAuthStateRx();
+  useEffect(() => {
+    console.log("app useEffect call");
+    getProjectsRx();
+  }, [getProjectsRx]);
+
   return (
     <div className="App">
       <Router>
@@ -26,11 +37,11 @@ function App() {
                   exact
                   path="/about"
                   render={props => <About {...props} />}
-                />{" "}
+                />
                 <Route
                   exact
                   path="/login"
-                  render={props => <Auth {...props} />}
+                  render={props => <Login {...props} />}
                 />
                 <Route
                   exact
@@ -46,4 +57,11 @@ function App() {
   );
 }
 
-export default App;
+const mapStateToProps = state => ({});
+
+const mapDispatchToProps = {
+  checkAuthStateRx: checkAuthState,
+  getProjectsRx: getProjects
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

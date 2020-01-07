@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { Button, Form, Input } from "semantic-ui-react";
 import { connect } from "react-redux";
-import { authLogin } from "../../Actions/Index";
+import { userLogin } from "./../../Actions/Index";
 
 const styleAuth = {
   form: {
-    width: 500,
+    maxWidth: 500,
     marginLeft: "auto",
     marginRight: "auto",
     marginTop: 100,
@@ -18,8 +18,8 @@ const styleAuth = {
 
 const Auth = props => {
   const [loginData, setLoginData] = useState({
-    username: "",
-    password: ""
+    email: "dat@gmail.com",
+    password: "dat@gmail.com"
   });
 
   const handleFormInputData = (e, d) => {
@@ -29,28 +29,35 @@ const Auth = props => {
     });
   };
 
+  if (props.user) {
+    props.history.push("/");
+  } else {
+    console.log("no login push");
+  }
+
   const submitLogin = e => {
     e.preventDefault();
-    props.authLoginRe(loginData.username);
+    props.userLoginRx(loginData);
     setLoginData({
       ...loginData,
-      username: "",
+      loginName: "",
       password: ""
     });
-    props.history.push("/");
   };
+
+  console.log("Login Render");
 
   return (
     <>
       <div style={styleAuth.form}>
         <Form onSubmit={e => submitLogin(e)}>
           <Form.Field>
-            <label style={styleAuth.fontsize}>User Name</label>
+            <label style={styleAuth.fontsize}>Email</label>
             <Input
               style={styleAuth.fontsize}
-              placeholder="User Name"
-              name="username"
-              value={loginData.username}
+              placeholder="Email"
+              name="email"
+              value={loginData.email}
               onChange={(e, d) => handleFormInputData(e, d)}
             />
           </Form.Field>
@@ -65,7 +72,7 @@ const Auth = props => {
               onChange={(e, d) => handleFormInputData(e, d)}
             />
           </Form.Field>
-
+          {props.errorMsg ? props.errorMsg : null}
           <Button
             type="submit"
             floated="right"
@@ -81,16 +88,14 @@ const Auth = props => {
 };
 
 const mapStateToProps = state => {
-  //****testing
-  console.log("state", state);
   return {
     user: state.auth.user,
-    state
+    errorMsg: state.auth.errorMsg
   };
 };
 
 const mapDispatchToProps = {
-  authLoginRe: authLogin
+  userLoginRx: userLogin
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Auth);

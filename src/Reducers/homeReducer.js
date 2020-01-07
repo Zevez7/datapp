@@ -1,14 +1,13 @@
-import Data from "../projectData.json";
-import { ADD_PROJECT, DELETE_PROJECT } from "./../Actions/Types";
+// import Data from "../projectData.json";
+import { GET_PROJECTS } from "./../Actions/Types";
 
-const initialState = Data;
+const initialState = [];
 
 export default (state = initialState, { type, payload }) => {
   switch (type) {
-    case ADD_PROJECT:
-      return [...state, ...payload];
-    case DELETE_PROJECT:
-      return state.filter(item => item.id !== payload);
+    case GET_PROJECTS:
+      console.log("getproject payload", payload);
+      return payload;
     default:
       return state;
   }

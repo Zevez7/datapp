@@ -1,28 +1,29 @@
 import React, { useState, useEffect } from "react";
 import { Button, Confirm, Form } from "semantic-ui-react";
 import { connect } from "react-redux";
-import { addProject } from "./../../Actions/Index";
-import uid from "uid";
+import { editProject } from "../../Actions/Index";
 
-const styleAdminModalAddProject = {
+const styleAdminModalEditProject = {
   button: { marginBottom: 10 },
   form: {
     padding: 30
   }
 };
 
-const AdminModalAddProject = props => {
+const AdminModalEditProject = props => {
+  const { projectItem } = props;
+
   const [open, setOpen] = useState(false);
 
   const [formData, setFormData] = useState({
-    id: uid(),
-    name: "project1",
-    link: "https://zevez7.github.io/datapp/#/",
-    github: "https://github.com/Zevez7",
-    date: "2020-01",
-    stack: "",
-    color: "",
-    info: "Lorem ipsum dolor, sit amet consectetur"
+    id: projectItem.id,
+    name: projectItem.name,
+    link: projectItem.link,
+    github: projectItem.github,
+    date: projectItem.date,
+    stack: projectItem.stack,
+    color: projectItem.color,
+    info: projectItem.info
   });
 
   const handleFormInputData = e => {
@@ -69,20 +70,10 @@ const AdminModalAddProject = props => {
 
   const submitButton = () => {
     closeButton();
-    props.addProjectRx(formData);
-    setFormData({
-      id: uid(),
-      name: "",
-      link: "",
-      date: "",
-      stack: "",
-      color: "",
-      info: ""
-    });
-    // props.getProjectsRx();
+    props.editProjectRx(formData);
   };
   const AddProject = (
-    <Form style={styleAdminModalAddProject.form}>
+    <Form style={styleAdminModalEditProject.form}>
       <Form.Field>
         <label>Name</label>
         <input
@@ -114,9 +105,9 @@ const AdminModalAddProject = props => {
         />
       </Form.Field>
       <Form.Field>
-        <label>Date (YYYY-MM-DD)</label>
+        <label>Date</label>
         <input
-          placeholder="Date (2019-04-01)"
+          placeholder="Date (ex 2019-04)"
           name="date"
           required
           value={formData.date}
@@ -157,36 +148,35 @@ const AdminModalAddProject = props => {
   );
 
   return (
-    <div>
-      <div>
-        <Button
-          onClick={openButton}
-          content="Add New Project"
-          positive
-          floated="right"
-          style={styleAdminModalAddProject.button}
-          icon="plus"
-          size="large"
-        />
-        <Confirm
-          open={open}
-          onCancel={closeButton}
-          onConfirm={submitButton}
-          content={AddProject}
-          confirmButton={"Submit"}
-        />
-      </div>
-    </div>
+    <>
+      <Button
+        onClick={openButton}
+        content="Edit"
+        basic
+        compact
+        floated="right"
+        style={styleAdminModalEditProject.button}
+      />
+      <Confirm
+        open={open}
+        onCancel={closeButton}
+        onConfirm={submitButton}
+        content={AddProject}
+        confirmButton={"Submit"}
+      />
+    </>
   );
 };
 
-const mapStateToProps = state => ({});
+const mapStateToProps = (state, ownProps) => {
+  return {};
+};
 
 const mapDispatchToProps = {
-  addProjectRx: addProject
+  editProjectRx: editProject
 };
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(AdminModalAddProject);
+)(AdminModalEditProject);

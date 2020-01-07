@@ -1,6 +1,6 @@
 import React from "react";
 import Sphere from "../images/aboutImg.png";
-import { Image, Card, List, Grid, Icon } from "semantic-ui-react";
+import { Image, Card, List, Grid, Icon, Placeholder } from "semantic-ui-react";
 
 const styleAbout = {
   link: {
@@ -10,19 +10,28 @@ const styleAbout = {
     marginBottom: 30,
     width: 200,
     textAlign: "center"
+  },
+  placeholder: {
+    height: 300,
+    width: 300,
+    marginLeft: "auto",
+    marginRight: "auto",
+    borderRadius: "500rem"
   }
 };
 
 const About = () => {
   return (
     <>
-      <Image
-        src={Sphere}
-        size="medium"
-        circular
-        centered
-        className="imageRotate"
-      />
+      <Placeholder style={styleAbout.placeholder}>
+        <Image
+          src={Sphere}
+          size="medium"
+          circular
+          centered
+          className="imageRotate"
+        />
+      </Placeholder>
 
       <div style={styleAbout.link}>
         <a

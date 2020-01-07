@@ -8,7 +8,8 @@ const styleProject = {
     padding: 5
   },
   column: {
-    marginTop: 30
+    marginTop: 30,
+    marginBottom: 30
   },
   description: {
     padding: 5

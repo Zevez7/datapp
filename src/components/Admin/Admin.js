@@ -4,15 +4,23 @@ import { Table, Item, Button, Confirm } from "semantic-ui-react";
 import { DateTime } from "luxon";
 import { deleteProject } from "../../Actions/Index";
 import AdminModalAddProject from "./AdminModalAddProject";
-
-const styleAdmin = {};
+import { Dimmer, Loader, Placeholder, Segment } from "semantic-ui-react";
+import AdminModalEditProject from "./AdminModalEditProject";
+import selectSortDate from "../../Selectors/selectSortDate";
 
 const Admin = props => {
+  const { user, authLoadingCompleted, sortedProjectByDate } = props;
+
   const [open, setOpen] = useState(false);
   const [deleteId, setDeleteId] = useState(null);
   const [deleteName, setDeleteName] = useState(null);
 
-  const openButton = (itemId, itemName) => {
+  //****testing
+  console.log("authLoadingCompleted", authLoadingCompleted);
+
+  // a modal will open when openDeleteButton is clicked.
+  // passed into the function will be the itemId, it will also
+  const openDeleteButton = (itemId, itemName) => {
     setDeleteId(itemId);
     setDeleteName(itemName);
     setOpen(true);
@@ -21,16 +29,18 @@ const Admin = props => {
 
   const submitButton = () => {
     closeButton();
+
     props.deleteProjectRx(deleteId);
   };
 
   const StringDateFormat = dateData => {
     return DateTime.fromISO(dateData).toLocaleString({
       month: "short",
-      year: "numeric"
+      year: "numeric",
+      day: "numeric"
     });
   };
-  const projectMap = props.project.map(item => {
+  const projectMap = sortedProjectByDate.map(item => {
     return (
       <Table celled compact column={5} key={item.id}>
         <Table.Header>
@@ -39,7 +49,7 @@ const Admin = props => {
               {item.name}
 
               <Button
-                onClick={() => openButton(item.id, item.name)}
+                onClick={() => openDeleteButton(item.id, item.name)}
                 basic
                 compact
                 floated="right"
@@ -47,9 +57,7 @@ const Admin = props => {
                 Delete
               </Button>
 
-              <Button basic circular compact disabled floated="right">
-                Edit
-              </Button>
+              <AdminModalEditProject projectItem={item} />
             </Table.HeaderCell>
           </Table.Row>
         </Table.Header>
@@ -110,27 +118,69 @@ const Admin = props => {
     );
   });
 
-  return (
-    <div>
-      <Confirm
-        open={open}
-        header={`Delete Confirmation`}
-        onCancel={closeButton}
-        onConfirm={() => {
-          submitButton();
-        }}
-        content={`${deleteName}`}
-        confirmButton="Delete"
-      />
-      <AdminModalAddProject />
-      {projectMap}
-    </div>
+  // rendering a loading screen while auth is being conducted
+  // after completing authLoadingComplete, check if user is true or false
+  // false user will get a redirect to home page
+  const loaderComp = (
+    <Segment>
+      <Dimmer active inverted>
+        <Loader size="massive" />
+      </Dimmer>
+      <Placeholder>
+        <Placeholder.Header image>
+          <Placeholder.Line length="full" />
+          <Placeholder.Line length="full" />
+        </Placeholder.Header>
+        <Placeholder.Paragraph>
+          <Placeholder.Line length="full" />
+          <Placeholder.Line length="full" />
+          <Placeholder.Line length="full" />
+          <Placeholder.Line length="full" />
+          <Placeholder.Line length="full" />
+          <Placeholder.Line length="full" />
+          <Placeholder.Line length="full" />
+          <Placeholder.Line length="full" />
+          <Placeholder.Line length="full" />
+        </Placeholder.Paragraph>
+      </Placeholder>
+    </Segment>
   );
+
+  let authLoadingLogic;
+  if (authLoadingCompleted) {
+    if (user) {
+      authLoadingLogic = (
+        <>
+          <Confirm
+            open={open}
+            header={`Delete Confirmation`}
+            onCancel={closeButton}
+            onConfirm={submitButton}
+            content={`${deleteName}`}
+            confirmButton="Delete"
+          />
+          <AdminModalAddProject />
+          {projectMap}
+        </>
+      );
+    } else {
+      props.history.push("/");
+    }
+  } else {
+    authLoadingLogic = loaderComp;
+  }
+
+  return <div>{authLoadingLogic}</div>;
 };
 
 const mapStateToProps = state => {
+  const SortedDate = selectSortDate(state);
+  
   return {
-    project: state.home
+    user: state.auth.user,
+    authLoadingCompleted: state.auth.authLoadingCompleted,
+    project: state.home,
+    sortedProjectByDate: SortedDate
   };
 };
 

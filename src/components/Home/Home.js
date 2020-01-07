@@ -1,27 +1,40 @@
 import React from "react";
-import { Image, Grid } from "semantic-ui-react";
+import { Image, Grid, Placeholder } from "semantic-ui-react";
 import PaulOcean from "../../images/paulocean.jpg";
 import { connect } from "react-redux";
 import HomeProject from "./HomeProject";
+import selectSortDate from "../../Selectors/selectSortDate";
 
 const styleHome = {
   spacer: {
     height: 60
+  },
+  placeholder: {
+    height: 300,
+    width: 300,
+    marginLeft: "auto",
+    marginRight: "auto",
+    borderRadius: "500rem"
   }
 };
 
 const Home = props => {
+  const { sortedProjectByDate } = props;
+
   //****testing
-  console.log("props.project", props.project);
+  console.log("sortedProjectByDate", sortedProjectByDate);
+  console.log("home call");
 
   return (
     <>
-      <Image src={PaulOcean} size="medium" circular centered />
+      <Placeholder style={styleHome.placeholder}>
+        <Image src={PaulOcean} size="medium" circular centered />
+      </Placeholder>
 
       <div style={styleHome.spacer} />
       <Grid container columns={4} doubling>
         <Grid.Row>
-          {props.project.map((item, index) => {
+          {sortedProjectByDate.map((item, index) => {
             return <HomeProject data={item} key={index} />;
           })}
         </Grid.Row>
@@ -31,7 +44,7 @@ const Home = props => {
 };
 
 const mapStateToProps = state => ({
-  project: state.home
+  sortedProjectByDate: selectSortDate(state)
 });
 
 const mapDispatchToProps = {};

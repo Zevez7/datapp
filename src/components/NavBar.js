@@ -2,14 +2,15 @@ import React from "react";
 import { Menu } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { authLogOut } from "./../Actions/Index";
+import { userLogout } from "./../Actions/Index";
 
 const styleNav = {
   menu: {
     padding: 3,
     paddingLeft: 10,
     paddingRight: 10,
-    fontSize: "1.2rem"
+    fontSize: "1.2rem",
+    margin: 0
   },
   log: {
     paddingRight: 40
@@ -17,8 +18,9 @@ const styleNav = {
 };
 
 const NavBar = props => {
-  //****testing
-  console.log("props.user", props.user);
+  const handleLogout = () => {
+    props.userLogoutRx();
+  };
 
   return (
     <Menu secondary style={styleNav.menu} stackable>
@@ -31,8 +33,8 @@ const NavBar = props => {
       <Menu.Menu position="right" style={styleNav.log}>
         {props.user ? (
           <>
-            <Menu.Item name={`${props.user}`} />
-            <Menu.Item name="Logout" as="a" onClick={props.authLogOutRe} />
+            <Menu.Item content={`${props.user}`} />
+            <Menu.Item name="Logout" as="a" onClick={handleLogout} />
           </>
         ) : (
           <Menu.Item name="Login" as={Link} to="/login" />
@@ -42,12 +44,19 @@ const NavBar = props => {
   );
 };
 
-const mapStateToProps = state => ({
-  user: state.auth.user
-});
+const mapStateToProps = state => {
+  let userEmail = null;
+  if (state.auth.user != null) {
+    userEmail = state.auth.user.email;
+  }
+
+  return {
+    user: userEmail
+  };
+};
 
 const mapDispatchToProps = {
-  authLogOutRe: authLogOut
+  userLogoutRx: userLogout
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(NavBar);
